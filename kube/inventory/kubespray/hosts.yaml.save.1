@@ -1,0 +1,48 @@
+all:
+  hosts:
+    node1:
+      localhost ansible_connection: local
+      ansible_user: ubuntu
+      ansible_connection: ssh
+      ansible_private_key_file: paas.pem
+      ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+    node2:
+      machine-2 ansible_host: 10.10.10.47
+      ip: 10.10.10.47
+      access_ip: 10.10.10.47
+      ansible_user: ubuntu
+      ansible_connection: ssh
+      ansible_private_key_file: paas.pem
+      ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+    node3:
+      machine-3 ansible_host: 10.10.10.124
+      ip: 10.10.10.124
+      access_ip: 10.10.10.124
+      ansible_user: ubuntu
+      ansible_connection: ssh
+      ansible_private_key_file: paas.pem
+      ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+  children:
+    kube_control_plane:
+      hosts:
+        node1:
+        node2:
+        node3:
+      hosts:
+        node1:
+        node2:
+        node3:
+    etcd:
+      hosts:
+        node1:
+        node2:
+        node3:
+    k8s_cluster:
+      children:
+        kube_control_plane:
+        kube_node:
+    calico_rr:
+      hosts: {}
+
+      #localhost ansible_connection=local
+# 

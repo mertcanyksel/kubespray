@@ -1,0 +1,41 @@
+all:
+  hosts:
+    node1:
+      ansible_host: 10.10.10.89
+      ip: 10.10.10.89
+      access_ip: 10.10.10.89
+      ansible_user: cirros
+      ansible_password: '1'
+    node2:
+      ansible_host: 10.10.10.47
+      ip: 10.10.10.47
+      access_ip: 10.10.10.47
+      ansible_user: cirros
+      ansible_password: '1'
+    node3:
+      ansible_host: 10.10.10.124
+      ip: 10.10.10.124
+      access_ip: 10.10.10.124
+      ansible_user: cirros
+      ansible_password: '1'
+  children:
+    kube_control_plane:
+      hosts:
+        node1:
+        node2:
+    kube_node:
+      hosts:
+        node1:
+        node2:
+        node3:
+    etcd:
+      hosts:
+        node1:
+        node2:
+        node3:
+    k8s_cluster:
+      children:
+        kube_control_plane:
+        kube_node:
+    calico_rr:
+      hosts: {}

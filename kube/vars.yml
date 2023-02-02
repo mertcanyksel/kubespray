@@ -1,0 +1,21 @@
+# Path
+project_name: kubespray
+install_root: /root
+dir: /inventory/mycluster/group_vars/all
+private_key_file : ~/.ssh/paas.pem  
+
+# Machine Info
+machine_ips: 10.10.10.89 10.10.10.47 10.10.10.124
+ansible_user: ubuntu
+
+# all.yaml
+no_proxy_exclude_workers: true
+
+#k8cluster
+addons:
+  - dashboard_enabled: false
+  - helm_enabled: true
+  - registry_enabled: false
+  - metrics_server_enabled: true
+  - ingress_nginx_enabled: true
+  - ingress_nginx_host_network: "TeSt24"

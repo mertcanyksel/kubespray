@@ -1,0 +1,33 @@
+---
+
+  - hosts: all
+    become: true
+    gather_facts: false
+    vars_files:
+      - vars.yml
+
+    tasks:
+
+    - name: "Update Repository cache" 
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
+        force_apt_get: true	
+
+    - name: İnstall pip3
+      ansible.builtin.apt:
+        name: python3-pip
+        state: latest
+    #  shell: "apt install python3-pip"
+      
+    - name: Installing requirements
+      pip:
+        requirements: "{{ playbook_dir }}/requirements.txt"
+      #      shell: "pip3 install -r {{ playbook_dir }}/requirements.txt"
+
+    - name: Copying sample to project name
+      shell: "cp -rfp {{ playbook_dir }}/inventory/sample {{ playbook_dir }}/inventory/{{ project_name }}"
+
+    - name: Declare array from variabl
+      shell:
+         "CONFIG_FILE={{ playbook_dir }}/inventory/{{ project_name }}/hosts.yaml python3 {{ playbook_dir }}/contrib/inventory_builder/inventory.py {{ machine_ips }}"

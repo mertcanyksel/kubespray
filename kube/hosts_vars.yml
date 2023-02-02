@@ -1,0 +1,5 @@
+#[server:vars]
+ansible_connection: ssh
+ansible_user: ubuntu
+ansible_private_key_file: paas.pem
+ansible_ssh_common_args: '-o StrictHostKeyChecking=no'

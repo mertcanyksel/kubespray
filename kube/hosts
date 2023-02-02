@@ -1,0 +1,16 @@
+[localhost]
+localhost ansible_connection=local
+
+
+[server]
+machine-1 ansible_host=10.10.10.89 ansible_user=ubuntu
+machine-2 ansible_host=10.10.10.47 ansible_user=ubuntu
+machine-3 ansible_host=10.10.10.124 ansible_user=ubuntu
+
+
+[server:vars]
+ansible_connection=ssh
+ansible_user=ubuntu
+#ansible_private_key_file=paas.pem
+#ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+
